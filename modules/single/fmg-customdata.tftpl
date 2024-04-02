@@ -35,14 +35,6 @@ config system admin setting
     set show_schedule_script enable
     set show_tcl_script enable
 end
-config system admin user
-    edit devops
-    set password', parameters('adminPassword'), '
-    set profileid Super_User
-    set adom all_adoms
-    set policy-package all_policy_packages
-    set rpc-permit read-write
-end
 config system interface
     edit "port1"
         set ip ${fmg_ipaddr}/${fmg_mask}
