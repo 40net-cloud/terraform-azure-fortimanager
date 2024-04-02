@@ -20,6 +20,13 @@ locals {
     vnet_network          = data.azurerm_virtual_network.vnet.address_space[0]
   }
   fmg_customdata = base64encode(templatefile("${path.module}/fmg-customdata.tftpl", local.fmg_vars))
+
+  fmg_plan = {
+    publisher = "fortinet"
+    product   = "fortinet-fortimanager"
+    name      = "fortinet-fortimanager"
+  }
+
 }
 
 resource "random_string" "random" {
@@ -147,17 +154,25 @@ resource "azurerm_linux_virtual_machine" "fmg" {
     type = "SystemAssigned"
   }
 
-  source_image_reference {
-    publisher = "fortinet"
-    offer     = "fortinet-fortimanager"
-    sku       = "fortinet-fortimanager"
-    version   = var.fmg_version
+  source_image_id = var.fmg_source_image_id
+
+  dynamic "source_image_reference" {
+    for_each = var.fmg_source_image_id == null ? toset([1]) : toset([])
+    content {
+      publisher = "fortinet"
+      offer     = "fortinet-fortimanager"
+      sku       = "fortinet-fortimanager"
+      version   = var.fmg_version
+    }
   }
 
-  plan {
-    publisher = "fortinet"
-    product   = "fortinet-fortimanager"
-    name      = var.fmg_image_sku
+  dynamic "plan" {
+    for_each = var.fmg_source_image_id == null ? toset([1]) : toset([])
+    content {
+      publisher = "fortinet"
+      product   = "fortinet-fortimanager"
+      name      = "fortinet-fortimanager"
+    }
   }
 
   os_disk {

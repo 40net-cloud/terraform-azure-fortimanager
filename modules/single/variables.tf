@@ -51,11 +51,6 @@ data "azurerm_subnet" "subnet1" {
 # FortiManager
 ##############################################################################################################
 
-variable "fmg_image_sku" {
-  description = "Azure Marketplace default image byol (Bring your own license 'fortinet-fortimanager)"
-  default     = "fortinet-fortimanager"
-}
-
 variable "fmg_version" {
   description = "FortiManager version by default the 'latest' available version in the Azure Marketplace is selected"
   default     = "latest"
@@ -92,6 +87,11 @@ variable fmg_datadisk_count {
 variable "fmg_accelerated_networking" {
   description = "Enables Accelerated Networking for the network interfaces of the FortiManager"
   default     = "true"
+}
+
+variable "fmg_source_image_id" {
+  description = "Reference a your own FortiManager image instead of one from the Azure Marketplace"
+  default     = null
 }
 
 variable "fortinet_tags" {
