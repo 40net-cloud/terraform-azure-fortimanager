@@ -206,7 +206,7 @@ resource "azurerm_managed_disk" "fmg-datadisk" {
   disk_size_gb         = var.fmg_datadisk_size_gb
 }
 
-resource "azurerm_virtual_machine_data_disk_attachment" "fgtavm-datadisk-attach" {
+resource "azurerm_virtual_machine_data_disk_attachment" "fmgavm-datadisk-attach" {
   count              = var.fmg_datadisk_count
   managed_disk_id    = element(azurerm_managed_disk.fmg-datadisk.*.id, count.index)
   virtual_machine_id = azurerm_linux_virtual_machine.fmg.id
