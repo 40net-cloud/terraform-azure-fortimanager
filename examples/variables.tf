@@ -76,10 +76,6 @@ variable "subnets" {
   ]
 }
 
-variable "fgt_vmsize" {
-  default = "Standard_F4s"
-}
-
 variable "fortinet_tags" {
   type = map(string)
   default = {
