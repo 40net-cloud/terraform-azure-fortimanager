@@ -32,9 +32,14 @@ variable "virtual_network_name" {
   description = ""
 }
 
+variable "virtual_network_resource_group_name" {
+  description = ""
+  default     = ""
+}
+
 data "azurerm_virtual_network" "vnet" {
   name                = var.virtual_network_name
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.virtual_network_resource_group_name != "" ? var.virtual_network_resource_group_name : var.resource_group_name
 }
 
 variable "subnet_name" {
@@ -43,7 +48,7 @@ variable "subnet_name" {
 
 data "azurerm_subnet" "subnet1" {
   name                 = var.subnet_name
-  resource_group_name  = var.resource_group_name
+  resource_group_name  = var.virtual_network_resource_group_name != "" ? var.virtual_network_resource_group_name : var.resource_group_name
   virtual_network_name = var.virtual_network_name
 }
 
@@ -80,7 +85,7 @@ variable "fmg_storage_account_type" {
   default = "Standard_LRS"
 }
 
-variable fmg_datadisk_count {
+variable "fmg_datadisk_count" {
   default = 1
 }
 
