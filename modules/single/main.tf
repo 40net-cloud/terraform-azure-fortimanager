@@ -17,7 +17,6 @@ locals {
     fmg_ipaddr            = azurerm_network_interface.fmgifc.private_ip_address
     fmg_mask              = cidrnetmask(data.azurerm_subnet.subnet1.address_prefixes[0])
     fmg_gw                = cidrhost(data.azurerm_subnet.subnet1.address_prefixes[0], 1)
-    vnet_network          = data.azurerm_virtual_network.vnet.address_space[0]
   }
   fmg_customdata = base64encode(templatefile("${path.module}/fmg-customdata.tftpl", local.fmg_vars))
 
@@ -128,7 +127,7 @@ resource "azurerm_network_interface" "fmgifc" {
 
   ip_configuration {
     name                          = "interface1"
-    subnet_id                     = data.azurerm_subnet.subnet1.id
+    subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.fmgpip.id
   }

@@ -28,28 +28,16 @@ variable "password" {
 variable "resource_group_name" {
 }
 
-variable "virtual_network_name" {
+variable "virtual_network_id" {
+  description = "Id of the VNET to deploy the FortiGate into"
+}
+
+variable "subnet_id" {
   description = ""
 }
 
-variable "virtual_network_resource_group_name" {
+variable "subnet_prefix" {
   description = ""
-  default     = ""
-}
-
-data "azurerm_virtual_network" "vnet" {
-  name                = var.virtual_network_name
-  resource_group_name = var.virtual_network_resource_group_name != "" ? var.virtual_network_resource_group_name : var.resource_group_name
-}
-
-variable "subnet_name" {
-  description = ""
-}
-
-data "azurerm_subnet" "subnet1" {
-  name                 = var.subnet_name
-  resource_group_name  = var.virtual_network_resource_group_name != "" ? var.virtual_network_resource_group_name : var.resource_group_name
-  virtual_network_name = var.virtual_network_name
 }
 
 ##############################################################################################################
