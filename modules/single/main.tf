@@ -15,8 +15,8 @@ locals {
     fmg_username          = var.username
     fmg_ssh_public_key    = var.fmg_ssh_public_key_file
     fmg_ipaddr            = azurerm_network_interface.fmgifc.private_ip_address
-    fmg_mask              = cidrnetmask(data.azurerm_subnet.subnet1.address_prefixes[0])
-    fmg_gw                = cidrhost(data.azurerm_subnet.subnet1.address_prefixes[0], 1)
+    fmg_mask              = cidrnetmask(var.subnet_prefix)
+    fmg_gw                = cidrhost(var.subnet_prefix, 1)
   }
   fmg_customdata = base64encode(templatefile("${path.module}/fmg-customdata.tftpl", local.fmg_vars))
 
