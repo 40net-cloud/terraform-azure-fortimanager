@@ -48,8 +48,7 @@ config system route
     next
 end
 config system ha
-	set mode primary
-    set clusterid 10
+	set clusterid 10
     set failover-mode vrrp
     set hb-interval 5
     set hb-lost-threshold 10
