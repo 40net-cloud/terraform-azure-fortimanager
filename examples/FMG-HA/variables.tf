@@ -20,6 +20,16 @@ variable "username" {
 variable "password" {
 }
 
+variable "ha_ip" {
+  description = "ha_ip: either 'public' or 'private'"
+  type        = string
+
+  validation {
+    condition     = var.ha_ip == "public" || var.ha_ip == "private"
+    error_message = "The ha_ip variable must be either 'public' or 'private'."
+  }
+}
+
 ##############################################################################################################
 # FortiManager license type
 ##############################################################################################################
@@ -34,12 +44,12 @@ variable "fmg1_byol_license_file" {
 }
 
 variable "fmg1_byol_fortiflex_license_token" {
-  default = ""
+  default = "65421D3DB80D0BE445FC"
 }
 
 variable "fmg1_byol_serial_number" {
   description = "FMG1 Serial Number is required for FMG-HA deployment"
-  default = ""
+  default = "FMVMELTM23000042"
 }
 
 variable "fmg2_byol_license_file" {
@@ -47,12 +57,12 @@ variable "fmg2_byol_license_file" {
 }
 
 variable "fmg2_byol_fortiflex_license_token" {
-  default = ""
+  default = "FEB9D705FD1E6CF83816"
 }
 
 variable "fmg2_byol_serial_number" {
   description = "FMG2 Serial Number is required for FMG-HA deployment"
-  default = ""
+  default = "FMVMELTM24000647"
 }
 
 variable "fmg_ssh_public_key_file" {

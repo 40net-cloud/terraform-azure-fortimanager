@@ -1,6 +1,6 @@
 ##############################################################################################################
 #
-# FortiManager - High Availability  FortiManager VM-A
+# FortiManager - High Availability 
 # Terraform deployment template for Microsoft Azure
 #
 ##############################################################################################################
@@ -21,9 +21,22 @@ variable "username" {
 variable "password" {
 }
 
+variable "ha_ip" {
+  description = "ha_ip: either 'public' or 'private'"
+  type        = string
+
+  validation {
+    condition     = var.ha_ip == "public" || var.ha_ip == "private"
+    error_message = "The ha_ip variable must be either 'public' or 'private'."
+  }
+}
+
 ##############################################################################################################
 # Names and data sources of linked Azure resource
 ##############################################################################################################
+
+variable subscription_id {
+}
 
 variable "resource_group_name" {
 }
