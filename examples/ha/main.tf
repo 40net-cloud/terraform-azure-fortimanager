@@ -20,9 +20,6 @@ resource "azurerm_resource_group" "resourcegroup" {
 
 data "azurerm_subscription" "current" {}
 
-
-
-
 ##############################################################################################################
 # Virtual Network - VNET
 ##############################################################################################################
@@ -44,7 +41,7 @@ module "vnet" {
 # FortiManager   
 ##############################################################################################################
 module "fmg-ha" {
-  source = "../modules/HA"
+  source = "../../modules/ha"
 
   prefix                             = var.prefix
   location                           = var.location
